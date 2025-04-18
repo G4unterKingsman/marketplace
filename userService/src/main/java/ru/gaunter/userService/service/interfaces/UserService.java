@@ -13,4 +13,6 @@ public interface UserService {
     void create(UserCreateDto userCreateDto);
     void deleteByUuid(UUID uuid);
     void updateByUuid(UUID uuid, UserDto userDto);
+
+    Boolean checkUserExists(UUID userId);
 }

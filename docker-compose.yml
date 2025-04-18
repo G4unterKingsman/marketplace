@@ -35,6 +35,21 @@ services:
     volumes:
       - user-db-data:/var/lib/postgresql/data
 
+  order-db:
+    image: postgres:15
+    container_name: order-db
+    restart: no
+    environment:
+      POSTGRES_DB: order_db
+      POSTGRES_USER: order
+      POSTGRES_PASSWORD: order
+    ports:
+      - "5433:5432"
+    networks:
+      - market-net
+    volumes:
+      - order-db-data:/var/lib/postgresql/data
+
   product-service:
     build: ./productService/.
     container_name: product-service
@@ -130,5 +145,6 @@ services:
 volumes:
   product-db-data:
   user-db-data:
+  order-db-data:
   kafka-data:
 

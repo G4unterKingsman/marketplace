@@ -3,6 +3,7 @@ package ru.gaunter.productService.controller.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.gaunter.dto.ProductDtoForFeign;
 import ru.gaunter.productService.dto.ProductDto;
 import ru.gaunter.productService.dto.dtoforcreate.ProductCreateDto;
 import ru.gaunter.productService.service.ProductServiceImpl;
@@ -20,6 +21,13 @@ public class ProductRestController {
     public ProductDto getByUuid(@PathVariable UUID id){
         return productService.getByUuid(id);
     }
+
+
+    @GetMapping("/for_order/{uuid}")
+    public ProductDtoForFeign getForOrder(@PathVariable UUID uuid) {
+        return productService.getForOrder(uuid);
+    }
+
 
     @GetMapping
     public List<ProductDto> getAll(){

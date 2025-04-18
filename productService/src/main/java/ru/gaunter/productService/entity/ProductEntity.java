@@ -32,7 +32,7 @@ public class ProductEntity {
     private BigDecimal cost;
     private Double weight;
     private String description;
-
+    private Integer stock;
 
     @ManyToOne
     private CategoryEntity category;

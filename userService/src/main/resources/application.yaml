@@ -1,7 +1,6 @@
 server:
   port: 0
 
-
 jwt:
   secret: o3fXt3Vylu2dd3l0l/Xg7VhMl1gP9GmmHmgv9cR5PfM=
   lifetime: 30m

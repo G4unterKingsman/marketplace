@@ -3,6 +3,7 @@ package ru.gaunter.userService.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ru.gaunter.userService.entity.enums.Role;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;

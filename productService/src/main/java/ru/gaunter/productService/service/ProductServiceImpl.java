@@ -2,6 +2,8 @@ package ru.gaunter.productService.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.gaunter.dto.ProductDtoForFeign;
+import ru.gaunter.dto.exceprion.ProductNotFoundException;
 import ru.gaunter.productService.dto.ProductDto;
 import ru.gaunter.productService.dto.dtoforcreate.ProductCreateDto;
 import ru.gaunter.productService.dto.mapper.ProductMapper;
@@ -24,7 +26,8 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryServiceImpl categoryService;
 
     public ProductDto getByUuid(UUID uuid) {
-        return productMapper.toDto(productRepo.findById(uuid).orElseThrow());
+        return productMapper.toDto(productRepo.findById(uuid)
+                .orElseThrow(() -> new ProductNotFoundException("нет продукта с id " + uuid)));
     }
 
     public void create(ProductCreateDto productDto) {
@@ -52,5 +55,17 @@ public class ProductServiceImpl implements ProductService {
         ProductEntity productEntity = productMapper.toEntity(productDto);
         productEntity.setUuid(uuid);
         productRepo.save(productEntity);
+    }
+
+
+
+    public ProductDtoForFeign getForOrder(UUID uuid){
+        ProductEntity product = productRepo.findById(uuid).orElseThrow();
+
+        return new ProductDtoForFeign(
+                product.getUuid(),
+                product.getName(),
+                product.getCost()
+        );
     }
 }

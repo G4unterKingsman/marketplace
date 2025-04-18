@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.gaunter.userService.dto.UserCreateDto;
 import ru.gaunter.userService.dto.UserDto;
 import ru.gaunter.userService.dto.mapper.UserMapper;
-import ru.gaunter.userService.entity.Role;
+import ru.gaunter.userService.entity.enums.Role;
 import ru.gaunter.userService.entity.User;
 import ru.gaunter.userService.repository.UserRepo;
 import ru.gaunter.userService.service.interfaces.UserService;
@@ -63,5 +63,10 @@ public class UserServiceImpl implements UserService {
         user.setRoles(userDto.getRoles());
 
         userRepo.saveUser(user);
+    }
+
+    @Override
+    public Boolean checkUserExists(UUID userId) {
+        return userRepo.findById(userId).isPresent();
     }
 }

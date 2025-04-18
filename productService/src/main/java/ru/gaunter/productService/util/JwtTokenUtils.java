@@ -13,6 +13,7 @@ import java.security.Key;
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class JwtTokenUtils {
@@ -88,5 +89,10 @@ public class JwtTokenUtils {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    public UUID extractUserUuid(String token) {
+        Claims claims = getAllClaimsFromToken(token);
+        return UUID.fromString(claims.get("uuid", String.class));
     }
 }

@@ -1,4 +1,4 @@
-package ru.gaunter.userService.entity;
+package ru.gaunter.userService.entity.enums;
 
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

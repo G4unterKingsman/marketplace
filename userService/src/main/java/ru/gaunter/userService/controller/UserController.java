@@ -2,9 +2,11 @@ package ru.gaunter.userService.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.gaunter.userService.dto.UserCreateDto;
 import ru.gaunter.userService.dto.UserDto;
+import ru.gaunter.userService.entity.User;
 import ru.gaunter.userService.service.UserServiceImpl;
 
 import java.util.List;
@@ -44,5 +46,11 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable UUID id){
         userService.deleteByUuid(id);
+    }
+
+
+    @GetMapping("/{userId}/exists")
+    public ResponseEntity<Boolean> checkUserExists(@PathVariable UUID userId) {
+        return ResponseEntity.ok(userService.checkUserExists(userId));
     }
 }

@@ -1,4 +1,4 @@
-package ru.gaunter.userService.configuration;
+package ru.gaunter.userService.util;
 
 
 import io.jsonwebtoken.ExpiredJwtException;

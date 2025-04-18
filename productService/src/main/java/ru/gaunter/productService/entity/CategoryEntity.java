@@ -28,7 +28,6 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
-    // Имя категории должно валидироваться на фронте, список имён строго задан на беке(Молочка, Мясное, Овощи и т.д), пока не знаю как
     private String name;
 
     @ManyToOne

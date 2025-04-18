@@ -30,7 +30,7 @@ public class JwtTokenUtils {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String createToken(UserDetails userDetails, String email, String phone, List<String> roles) {
+    public String createToken(UserDetails userDetails, String email, String phone, List<String> roles, String uuid) {
         if (key == null) {
             initKey();
         }
@@ -41,6 +41,7 @@ public class JwtTokenUtils {
                 .setExpiration(new Date(System.currentTimeMillis() + jwtLifetime.toMillis()))
                 .claim("email", email)
                 .claim("phone", phone)
+                .claim("uuid", uuid)
                 .claim("roles", roles)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();

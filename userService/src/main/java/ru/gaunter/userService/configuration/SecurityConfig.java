@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import ru.gaunter.userService.util.JwtRequestFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +32,6 @@ public class SecurityConfig{
                 .authorizeHttpRequests((requests) -> requests
                         //.requestMatchers("/login", "/logout").permitAll()
 
-                        // не .authenticated() т.к не реализована авторизация для рест (jwt надо бы сделать)
                         .requestMatchers("/api/user").authenticated() // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                         .requestMatchers("/api/auth","/api/registration" ).permitAll()
                         .requestMatchers("/api/admin", "/api/admin/**").hasRole("ADMIN")

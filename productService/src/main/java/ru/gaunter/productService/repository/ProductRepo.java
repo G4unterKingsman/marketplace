@@ -23,6 +23,7 @@ public class ProductRepo {
                     .cost(rs.getBigDecimal("cost"))
                     .createdAt(rs.getTimestamp("created_at").toLocalDateTime())
                     .weight(rs.getDouble("weight"))
+                    .stock(rs.getInt("stock"))
                     .description(rs.getString("description"))
                     .name(rs.getString("name"))
                     .category(rs.getString("category_uuid") != null ?
@@ -34,7 +35,7 @@ public class ProductRepo {
 
     public List<ProductEntity> findAll() {
         return jdbcTemplate.query("""
-                SELECT p.uuid, p.name, p.created_at, p.cost, p.description, p.weight, c.uuid as category_uuid, c.name as category_name
+                SELECT p.uuid, p.name, p.created_at, p.cost, p.description, p.weight, p.stock, c.uuid as category_uuid, c.name as category_name
                 FROM product p
                 LEFT OUTER JOIN category c on c.uuid = p.category_uuid
                 """, productEntityRowMapper);
@@ -42,7 +43,7 @@ public class ProductRepo {
 
     public Optional<ProductEntity> findById(UUID uuid) {
         return jdbcTemplate.query("""
-                        SELECT p.uuid, p.name, p.created_at, p.cost, p.description, p.weight, c.uuid as category_uuid
+                        SELECT p.uuid, p.name, p.created_at, p.cost, p.description, p.weight, p.stock, c.uuid as category_uuid
                         FROM product p
                         LEFT OUTER JOIN category c on c.uuid = p.category_uuid
                         WHERE p.uuid = ?
@@ -52,10 +53,11 @@ public class ProductRepo {
 
     public void save(ProductEntity product) {
         jdbcTemplate.update(
-                "INSERT INTO product (uuid, cost, weight, category_uuid,description,created_at,name) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                "INSERT INTO product (uuid, cost, weight,stock, category_uuid,description,created_at,name) VALUES (?, ?, ?, ?, ?, ?, ?)",
                 product.getUuid(),
                 product.getCost(),
                 product.getWeight(),
+                product.getStock(),
                 product.getCategory().getUuid(),
                 product.getDescription(),
                 product.getCreatedAt(),
@@ -65,10 +67,11 @@ public class ProductRepo {
 
     public void update(ProductEntity product) {
         jdbcTemplate.update(
-                "UPDATE product SET uuid = ?, cost = ?, weight = ?, category_uuid = ?,description = ?,created_at = ?, name = ? WHERE uuid = ?",
+                "UPDATE product SET uuid = ?, cost = ?, weight = ?, stock = ?, category_uuid = ?,description = ?,created_at = ?, name = ? WHERE uuid = ?",
                 product.getUuid(),
                 product.getCost(),
                 product.getWeight(),
+                product.getStock(),
                 product.getCategory().getUuid(),
                 product.getDescription(),
                 product.getCreatedAt(),

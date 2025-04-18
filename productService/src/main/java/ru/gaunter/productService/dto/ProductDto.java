@@ -17,6 +17,7 @@ public class ProductDto {
     private LocalDateTime createdAt;
     private BigDecimal cost;
     private Double weight;
+    private Integer stock;
     private String description;
 
 

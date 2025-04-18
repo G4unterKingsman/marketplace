@@ -1,4 +1,4 @@
-package ru.gaunter.productService.config;
+package ru.gaunter.productService.util;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;

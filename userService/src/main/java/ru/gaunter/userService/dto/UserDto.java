@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.gaunter.userService.entity.Role;
+import ru.gaunter.userService.entity.enums.Role;
 
 import java.time.LocalDateTime;
 import java.util.Set;

@@ -4,7 +4,7 @@ package ru.gaunter.userService.repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
-import ru.gaunter.userService.entity.Role;
+import ru.gaunter.userService.entity.enums.Role;
 import ru.gaunter.userService.entity.User;
 
 import java.sql.SQLException;

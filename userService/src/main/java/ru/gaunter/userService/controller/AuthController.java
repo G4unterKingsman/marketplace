@@ -42,16 +42,23 @@ public class AuthController {
         } catch (BadCredentialsException e){
             return new ResponseEntity<>("Пользователь не найден",HttpStatus.UNAUTHORIZED) ;
         }
+
         UserDetails userDetails = userDetailsService.loadUserByUsername(jwtRequest.getUsername());
-        List<String> roles = userDetails.getAuthorities().stream()
+
+        List<String> roles = userDetails.getAuthorities()
+                .stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
+
+        String uuid = userService.getByUsername(userDetails.getUsername()).orElseThrow().getUuid().toString();
 
         String token = jwtTokenUtils.createToken(
                 userDetails,
                 jwtRequest.getEmail(),
                 jwtRequest.getPhone(),
-                roles);
+                roles,
+                uuid
+        );
 
         return ResponseEntity.ok(new JwtResponse(token));
     }

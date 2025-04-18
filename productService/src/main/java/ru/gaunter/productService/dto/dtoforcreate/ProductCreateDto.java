@@ -20,6 +20,7 @@ public class ProductCreateDto {
     private LocalDateTime createdAt;
     private BigDecimal cost;
     private Double weight;
+    private Integer stock;
     private String description;
     private String categoryName;
 }
