@@ -12,6 +12,8 @@ import ru.gaunter.productService.entity.ProductEntity;
 import ru.gaunter.productService.repository.ProductRepo;
 import ru.gaunter.productService.service.interfaces.ProductService;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -57,6 +59,13 @@ public class ProductServiceImpl implements ProductService {
         productRepo.save(productEntity);
     }
 
+    @Override
+    public void updateAllPrices(BigDecimal rateRatio) {
+        productRepo.findAll().forEach(product -> {
+            BigDecimal newPrice = product.getCost().multiply(rateRatio).setScale(2, RoundingMode.HALF_UP);
+            product.setCost(newPrice);
+            productRepo.update(product);});
+    }
 
 
     public ProductDtoForFeign getForOrder(UUID uuid){

@@ -3,3 +3,5 @@ spring:
     name: orderService
   config:
     import: configserver:http://localhost:8888
+  profiles:
+    active: common

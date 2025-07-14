@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwsHeader;
@@ -23,19 +21,15 @@ import ru.gaunter.userService.dto.JwtRequest;
 import ru.gaunter.userService.dto.JwtResponse;
 import ru.gaunter.userService.dto.UserCreateDto;
 import ru.gaunter.userService.entity.User;
-import ru.gaunter.userService.service.UserDetailsServiceImpl;
 import ru.gaunter.userService.service.UserServiceImpl;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class AuthController {
-    private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationManager authenticationManager;
     private final UserServiceImpl userService;
     private final JwtEncoder jwtEncoder;

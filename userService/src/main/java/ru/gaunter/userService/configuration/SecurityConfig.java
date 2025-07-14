@@ -2,6 +2,7 @@ package ru.gaunter.userService.configuration;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,14 +20,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig{
-
-
     private final JwtAuthenticationConverter jwtAuthenticationConverter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**")) //откл csrf для реста
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/**")) //откл csrf для реста
                 .authorizeHttpRequests((requests) -> requests
                         //.requestMatchers("/login", "/logout").permitAll()
 
@@ -35,6 +34,7 @@ public class SecurityConfig{
                         .requestMatchers("/api/admin", "/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/shop", "/api/shop/**").hasRole("SHOP_OWNER")
                         .requestMatchers("/api/buyer","/api/buyer/**").hasRole("BUYER")
+                        .requestMatchers("/actuator/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2

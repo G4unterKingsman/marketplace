@@ -4,6 +4,7 @@ package ru.gaunter.userService.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.gaunter.userService.aop.Loggable;
 import ru.gaunter.userService.dto.UserCreateDto;
 import ru.gaunter.userService.dto.UserDto;
 import ru.gaunter.userService.dto.mapper.UserMapper;
@@ -41,12 +42,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Loggable
     public void create(UserCreateDto userCreateDto) {
         User user = userMapper.toEntity(userCreateDto);
         user.setUuid(UUID.randomUUID());
         user.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
         user.setRoles(Set.of(Role.ROLE_BUYER));
-
         userRepo.saveUser(user);
     }
 

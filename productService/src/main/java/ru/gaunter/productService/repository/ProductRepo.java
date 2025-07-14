@@ -52,7 +52,7 @@ public class ProductRepo {
 
     public void save(ProductEntity product) {
         jdbcTemplate.update(
-                "INSERT INTO product (uuid, cost, weight,stock, category_uuid,description,created_at,name) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                "INSERT INTO product (uuid, cost, weight,stock, category_uuid,description,created_at,name) VALUES (?, ?, ?, ?, ?, ?, ?,?)",
                 product.getUuid(),
                 product.getCost(),
                 product.getWeight(),
@@ -66,15 +66,15 @@ public class ProductRepo {
 
     public void update(ProductEntity product) {
         jdbcTemplate.update(
-                "UPDATE product SET uuid = ?, cost = ?, weight = ?, stock = ?, category_uuid = ?,description = ?,created_at = ?, name = ? WHERE uuid = ?",
-                product.getUuid(),
+                "UPDATE product SET cost = ?, weight = ?, stock = ?, category_uuid = ?,description = ?,created_at = ?, name = ? WHERE uuid = ?",
                 product.getCost(),
                 product.getWeight(),
                 product.getStock(),
                 product.getCategory().getUuid(),
                 product.getDescription(),
                 product.getCreatedAt(),
-                product.getName()
+                product.getName(),
+                product.getUuid()
         );
     }
 

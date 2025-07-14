@@ -1,0 +1,55 @@
+networks:
+  market-net:
+    driver: bridge
+
+services:
+  product-db:
+    image: postgres:15
+    container_name: product-db
+    restart: no
+    environment:
+      POSTGRES_DB: product_db
+      POSTGRES_USER: product
+      POSTGRES_PASSWORD: product
+    ports:
+      - "5431:5432"
+    networks:
+      - market-net
+    volumes:
+      - product-db-data:/var/lib/postgresql/data
+
+  user-db:
+    image: postgres:15
+    container_name: user-db
+    restart: no
+    environment:
+      POSTGRES_DB: user_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+    ports:
+      - "5430:5432"
+    networks:
+      - market-net
+    volumes:
+      - user-db-data:/var/lib/postgresql/data
+
+  order-db:
+    image: postgres:15
+    container_name: order-db
+    restart: no
+    environment:
+      POSTGRES_DB: order_db
+      POSTGRES_USER: order
+      POSTGRES_PASSWORD: order
+    ports:
+      - "5433:5432"
+    networks:
+      - market-net
+    volumes:
+      - order-db-data:/var/lib/postgresql/data
+
+volumes:
+  product-db-data:
+  user-db-data:
+  order-db-data:
+

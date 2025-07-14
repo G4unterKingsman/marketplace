@@ -5,3 +5,18 @@ spring:
     import: configserver:http://localhost:8888
   profiles:
     active: common
+
+
+  jackson:
+    default-property-inclusion: non_null
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+
+feign:
+  client:
+    config:
+      default:
+        decode404: false
+        loggerLevel: full
+        errorDecoder: feignErrorDecoder
+
